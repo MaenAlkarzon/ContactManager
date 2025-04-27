@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState,useEffect } from "react";
+import PeopleForm from "./PeopleForm";
+//import PeopleList from "./PeopleList";
+//import Digimon from "./Digimon";
 
 function App() {
+  const [people, setPeople] = useState([]);
+
+  const addPerson = (person) => {
+    setPeople([...people, person]);
+    // console.log(people.length);
+
+  };
+
+  useEffect(() => {
+    console.log(people);
+    if (people.length > 0) {
+      console.log(`✅ New person added: ${people[people.length - 1].name}`);
+      console.log(`Total people now: ${people.length}`);
+    }
+  }, [people]);
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h1>🚀 React Basics Demo</h1>
+
+      <PeopleForm addPerson={addPerson} />
     </div>
   );
+
 }
 
 export default App;
