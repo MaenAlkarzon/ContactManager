@@ -1,35 +1,26 @@
-import { useState,useEffect } from "react";
-import PeopleForm from "./PeopleForm";
-//import PeopleList from "./PeopleList";
-//import Digimon from "./Digimon";
+import React, { useState } from 'react';
+import ContactForm from './form';
+import ContactList from './ContactList';
+import './Css/stylee.css';
 
 function App() {
-  const [people, setPeople] = useState([]);
+  const [contacts, setContacts] = useState([]);
 
-  const addPerson = (person) => {
-    setPeople([...people, person]);
-    // console.log(people.length);
-
+  const addContact = (contact) => {
+    setContacts([...contacts, { id: Date.now(), ...contact }]);
   };
 
-  useEffect(() => {
-    console.log(people);
-    if (people.length > 0) {
-      console.log(`✅ New person added: ${people[people.length - 1].name}`);
-      console.log(`Total people now: ${people.length}`);
-    }
-  }, [people]);
-
-
+  const deleteContact = (id) => {
+    setContacts(contacts.filter(contact => contact.id !== id));
+  };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>🚀 React Basics Demo</h1>
-
-      <PeopleForm addPerson={addPerson} />
+    <div className="app-container">
+      <h1>Contact Manager App</h1>
+      <ContactForm addContact={addContact} />
+      <ContactList contacts={contacts} deleteContact={deleteContact} />
     </div>
   );
-
 }
 
 export default App;
